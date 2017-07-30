@@ -4,6 +4,7 @@
   "description": "A Twitch highlight generator based on chat activity.",
   "main": "index.js",
   "scripts": {
+    "postinstall": "cd client && npm install && cd ../server && npm install",
     "start": "babel-node server.js",
     "heroku-postbuild": "cd client && npm run build",
     "dev": "run-p dev:proxy dev:server dev:client",

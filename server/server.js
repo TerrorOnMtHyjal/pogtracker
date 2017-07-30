@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 import Replay from './models/replay';
 require('dotenv').config();
 
-mongoose.connect(process.env.DATABASE,{
+mongoose.connect(process.env.DATABASE || "mongodb://localhost/test",{
   useMongoClient : true
 });
 

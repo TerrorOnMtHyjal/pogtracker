@@ -19,4 +19,6 @@ if(process.env.NODE_ENV === 'production'){
       'localhost:4000/api': 'http://localhost:8080'
     }
   }));
+
+  app.listen(4000);
 }
