@@ -8,9 +8,8 @@
     "npm" : ">=5.0.0"
    },
   "scripts": {
-    "postinstall": "cd server && npm install",
     "start": "babel-node server.js",
-    "heroku-postbuild": "cd client && npm install && npm run build",
+    "heroku-postbuild": "cd client && npm install && npm run build && cd ../server && npm install",
     "dev": "run-p dev:proxy dev:server dev:client",
     "dev:proxy": "babel-watch index.js",
     "dev:server": "cd server && NODE_ENV=development npm start",
