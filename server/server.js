@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 import Replay from './models/replay';
 require('dotenv').config();
 
-mongoose.connect(process.env.DATABASE,{
+mongoose.connect("mongodb://jared:h@ds121483.mlab.com:21483/pogtracker-dev",{
   useMongoClient : true
 });
 
