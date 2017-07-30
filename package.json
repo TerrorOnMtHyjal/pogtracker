@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "A Twitch highlight generator based on chat activity.",
   "main": "index.js",
+  "engines" : { 
+    "node" : ">=8.0.0",
+    "npm" : ">=5.0.0"
+   },
   "scripts": {
     "postinstall": "cd client && npm install && cd ../server && npm install",
     "start": "babel-node server.js",
