@@ -7,13 +7,11 @@ import mongoose from 'mongoose';
 import Replay from '../models/replay';
 
 router.use((req, res, next) => {
-  console.log("request", req);
   next();
 });
 
 //callback hell you shitheel
 router.get('/replay/:replay_id',(req, res) => {
-  console.log("why am I not getting to here?")
   Replay.findOne({ videoID: req.params.replay_id }, (err, replay) => {
     err && res.send(err) 
     console.log("Database successfully queried...");
