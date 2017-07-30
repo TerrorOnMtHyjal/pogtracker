@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 import Replay from './models/replay';
 require('dotenv').config();
 
-mongoose.connect(process.env.DATABASE || "mongodb://localhost/test",{
+mongoose.connect(process.env.DATABASE,{
   useMongoClient : true
 });
 
@@ -32,7 +32,7 @@ app.use((req, res, next) => {
 //     res.sendFile(index);
 // });
 
-app.use('/', router);
+app.use('/api', router);
 
 function runServer(port=8080) {
   return new Promise((resolve, reject) => {
