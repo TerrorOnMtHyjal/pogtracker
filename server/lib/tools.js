@@ -54,8 +54,7 @@ function parseChat(videoID){
   .then(productData => {
     if(productData.emoticons){
       productData.emoticons.forEach(({ id, state, regex }) => {
-        if(state === "active"){
-          console.log("im active")    
+        if(state === "active"){  
           parsedData.channelData.emotes[regex] = {
             code: regex,
             channelEmote: true,
@@ -84,11 +83,15 @@ function parseChat(videoID){
     return Promise.all(requests);
   })
   .then(chatChunks => {
-    console.log("Whew! Promise.all successful!")
+    console.log("Whew! Promise.all successful! Formatting data.")
 
     const library = makeLibrary(chatChunks, parsedData.channelData.emotes);
-    formattedLibrary = formatLibrary(library);
+    const formattedLibrary = formatLibrary(library);
+    parsedData.library = formattedLibrary;
 
+
+
+    console.log("One last call to make. Need that streamer image!")
 
     const channelOptions = {
       uri: parsedData.channelData.api,
@@ -98,15 +101,11 @@ function parseChat(videoID){
       json: true
     };
 
-    console.log("One last call to make. Need that streamer image!")
     return rp(channelOptions)
   })
   .then(channelData => {
     console.log("Image get! Bundling it up.");
-
     parsedData.channelData.logo = channelData.logo;
-    parsedData.library = formattedLibrary;
-
     return parsedData;
   })
   .catch(err => {
@@ -132,7 +131,7 @@ function makeLibrary(chunks, channelEmotes){
           !emoteTracker[emote]
             ?
               emoteTracker[emote] = {
-                emoteName : emote,
+                name : emote,
                 imgID : fullEmotes[emote].id,
                 channelEmote : fullEmotes[emote].channelEmote ? true : false,
                 moments : []
@@ -152,50 +151,30 @@ function makeLibrary(chunks, channelEmotes){
     for(let emote in momentsTracker){
       emoteTracker[emote].moments.push(momentsTracker[emote]);
     }
+
   });
 
-  console.log(emoteTracker);
   return emoteTracker;
 }
 
+
+
 function formatLibrary(library){
-  const formattedLibrary = {
-    mostUsed : "",
-    emotes : []
-  };
-  
-  let mostUsedTracker = {
-    emote : "default",
-    count : 0
-  }
+  const formattedLibrary = [];
 
   for(let emote in library){
-    const chunks = library[emote];
-    const topChunks = chunks.sort((a, b) => b.length - a.length).slice(0, 10);
-    const moments = topChunks.map(chunk => Math.min(...chunk));
-    let avg, count = 0;
-    
+    const topChunks = library[emote].moments.sort((a, b) => b.length - a.length).slice(0, 10);
+    const topMoments = topChunks.map(chunk => Math.min(...chunk));
 
-    chunks.forEach(chunk => count += chunk.length);
-    avg = count / chunks.length;
-
-
-    if(count > mostUsedTracker.count){
-      mostUsedTracker = {
-        emote,
-        count
-      }
-    } 
-
-    formattedLibrary.emotes.push({
-      name: emote,
-      count,
-      moments
+    formattedLibrary.push({
+      name: library[emote].name,
+      imgID: library[emote].imgID,
+      channelEmote : library[emote].channelEmote,
+      moments: topMoments
     });
   }
 
-  formattedLibrary.mostUsed = mostUsedTracker.emote;
-
+  console.log(formattedLibrary);
   return formattedLibrary;
 }
 
