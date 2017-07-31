@@ -21,12 +21,14 @@ const InstructionW = styled.div`
 
 const DescriptionW = styled.div`
   display: flex;
+  position: relative;
+  top: -8rem;
   flex-flow: column;
   align-items: flex-end;
-  margin-bottom: 15%;
-  margin-top: -25%;
+  font-size: 1rem;
 
-  & > h1, h2 {
+  & > h1 {
+    font-size: 1.25em;
     margin: 0;
     padding: 0;
   }
@@ -35,8 +37,9 @@ const DescriptionW = styled.div`
     display: flex;
     align-items: center;
     & > h2 {
+      font-size: 1em;
       margin: 0;
-      margin-left: -10px;
+      margin-left: -0.6em;
       padding: 0;
       color: rgba(100, 65, 164, 1);
     }
@@ -48,9 +51,9 @@ const ButtonsW = styled.div`
   align-items: center;
 
   & > button {
-    padding: 0.5rem 1.5rem;
-    margin-left: 1rem;
-    margin-top: 0.5rem;
+    padding: 0.25em 1em;
+    margin-left: 0.8em;
+    margin-top: 0.5em;
     background: none;
     border: 1px solid rgba(100, 65, 164, 1);
     cursor: pointer;
@@ -115,10 +118,10 @@ class Landing extends Component {
           <DescriptionW>
             <h1>THE ULTIMATE HIGHLIGHT GENERATOR</h1>
             <div><Emote url={`"https://static-cdn.jtvnw.net/emoticons/v1/156787/1.0"`}/><h2>powered by <span>twitch chat</span></h2></div>
-            <ButtonsW>
+            {/*<ButtonsW>
               <button>Streamers</button>
               <button>Viewers</button>
-            </ButtonsW>
+            </ButtonsW>*/}
           </DescriptionW>
           <Search/>
           <InstructionW>
