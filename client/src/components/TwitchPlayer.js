@@ -28,6 +28,10 @@ const ActiveEmoteHighlight = styled.div`
 	${props => props.imgID && `
 		background-image : url(https://static-cdn.jtvnw.net/emoticons/v1/${props.imgID}/3.0);
 		background-size: cover;
+		background-repeat: no-repeat;
+	`}
+	${props => props.flipped && `
+		transform: scaleX(-1);
 	`}
 `;
 
@@ -96,14 +100,14 @@ class TwitchPlayer extends Component {
 		return (
 			
       <PlayerW>
-				<ActiveEmoteHighlight imgID={tempImageSolution} />
+				<ActiveEmoteHighlight imgID={tempImageSolution}/>
 				<div id={this.state.id || ''} className="twitch-video-embed"></div>
 
 				<MomentList
 					moments={this.props.library.find(emote => emote.name === this.props.activeEmote).moments} 
 					activeMoment={this.props.activeMoment}
 				/>
-				<ActiveEmoteHighlight/>
+				<ActiveEmoteHighlight imgID={tempImageSolution} flipped/>
       </PlayerW>
 		);
 	}
