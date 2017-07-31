@@ -3,13 +3,19 @@ import { connect } from 'react-redux';
 import { updateActive } from '../actions/actions';
 import styled from 'styled-components';
 
-const ButtonWrapper = styled.div`
+const ButtonListW = styled.div`
   display: flex;
-  flex-wrap: wrap;
   flex-flow: column;
 `;
 
+const ButtonRowW = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
 const Button = styled.button`
+  background: silver;
+  cursor: pointer;
 `;
 
 class EmoteButtons extends Component {
@@ -59,17 +65,26 @@ class EmoteButtons extends Component {
 
 
   render() {
+
     return (
-      <ButtonWrapper>
+    this.state.subEmotes.length > 1 
+    ?
+      <ButtonListW>
         <h3>Subscriber Emotes</h3>
-          <div>
+          <ButtonRowW>
             {this.generateRow(this.state.subEmotes)}
-          </div>
+          </ButtonRowW>
         <h3>Global Emotes</h3>
-          <div>
+          <ButtonRowW>
             {this.generateRow(this.state.globalEmotes)}
-          </div>
-      </ButtonWrapper>
+          </ButtonRowW>
+      </ButtonListW>
+    :
+      <ButtonListW>
+          <ButtonRowW>
+            {this.generateRow(this.state.globalEmotes)}
+          </ButtonRowW>
+      </ButtonListW>
     );
   }
 }

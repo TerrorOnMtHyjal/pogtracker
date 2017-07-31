@@ -18,25 +18,17 @@ const PlayerW = styled.div`
 	background-image: url("https://www.transparenttextures.com/patterns/shattered.png");
 `;
 
-const ButtonW = styled.div`
+const ActiveEmoteHighlight = styled.div`
 	display: flex;
-	flex-flow: column;
-	height: 432px;
-`;
-
-const TimeButton = styled.button`
-	flex: 1;
-	padding: 0.8em 1.5em;
-	border: none;
-	background: rgba(100, 65, 164, 1);
-	color: white;
-	font-weight: bold;
-	border-right: 2px solid silver;
-
-	&:hover {
-		background: rgba(100, 65, 164, 0.8);
-	}
-
+	flex-basis: 0;
+	flex-grow: 1;
+	justify-content: center;
+	align-items: center;
+	opacity: 0.15;
+	${props => props.imgID && `
+		background-image : url(https://static-cdn.jtvnw.net/emoticons/v1/${props.imgID}/3.0);
+		background-size: cover;
+	`}
 `;
 
 class TwitchPlayer extends Component {
@@ -100,13 +92,18 @@ class TwitchPlayer extends Component {
   }
 
   render() {
+		const tempImageSolution = this.props.library.find(emote => emote.name === this.props.activeEmote).imgID;
 		return (
+			
       <PlayerW>
+				<ActiveEmoteHighlight imgID={tempImageSolution} />
 				<div id={this.state.id || ''} className="twitch-video-embed"></div>
+
 				<MomentList
 					moments={this.props.library.find(emote => emote.name === this.props.activeEmote).moments} 
 					activeMoment={this.props.activeMoment}
 				/>
+				<ActiveEmoteHighlight/>
       </PlayerW>
 		);
 	}
