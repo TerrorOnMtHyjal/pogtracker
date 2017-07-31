@@ -26,7 +26,7 @@ class App extends Component {
     return(
       <Router>
         <AppW>
-          <TopBar channel={this.props.channel ? this.props.channel : undefined}/>
+          <TopBar/>
             <Switch>
               <Route exact path="/" component={Landing}/>
               <Route path="/replay/:id" component={PogTracker}/>
@@ -38,7 +38,7 @@ class App extends Component {
   }
 }
 
-const mapState = ({ videoLoaded, requesting, channel }) => ({
+const mapState = ({ videoLoaded, requesting }) => ({
   videoLoaded,
   requesting
 });

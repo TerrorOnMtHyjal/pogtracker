@@ -47,6 +47,15 @@ export default function appState(state=initialState, action){
           replayData: action.data.replayData
         }
       }
+
+    case actions.DELOAD_VIDEO : 
+    return {
+      ...state,
+      videoLoaded: false,
+      loadedData : {
+        ...state.loadedData
+      }
+    }
     default:
       return state;
   }

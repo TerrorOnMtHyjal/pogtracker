@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { deloadVideo } from '../actions/actions';
 import Search from './Search';
 
 const LandingW = styled.div`
@@ -63,6 +65,13 @@ const Learn = styled.button`
 
 
 class Landing extends Component {
+
+  componentDidMount(){
+    if(this.props.match.path === "/"){
+      this.props.dispatch(deloadVideo());
+    }
+  }
+
   render() {
     return (
       <LandingW modal={!!this.props.modal}>
@@ -79,4 +88,4 @@ class Landing extends Component {
   }
 }
 
-export default Landing;
+export default connect()(Landing);
