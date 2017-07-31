@@ -1,4 +1,4 @@
-const emotes = {
+const defaultEmotes = {
   JKanStyle: {
     id: 15,
     code: 'JKanStyle',
@@ -1045,6 +1045,4 @@ const emotes = {
   }
 };
 
-const emoteNames = Object.keys(emotes);
-
-export default emoteNames;
+export default defaultEmotes;

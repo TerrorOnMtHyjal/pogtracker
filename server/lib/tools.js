@@ -1,13 +1,15 @@
-import emoteNames from './data';
+import defaultEmotes from './data';
 import rp from 'request-promise';
 
 const TWITCH_INTERVAL = 30;
 const REPLAY_OFFSET = 15;
 
 function parseChat(videoID){
-  let startTime, endTime, currentTime;
+  let startTime, 
+      endTime, 
+      currentTime, 
+      formattedLibrary;
   let parsedData = {};
-  let formattedLibrary;
 
   const initialOptions = {
     uri: 'https://api.twitch.tv/kraken/videos/' + videoID,
@@ -19,26 +21,10 @@ function parseChat(videoID){
 
   return rp(initialOptions)
   .then(data => {
-    console.log("Initial request successful.");
-
-    const requests = [];
+    //capture necessary replay data to generate timestamps in next promise
     startTime = ((new Date(data.recorded_at)).getTime()) / 1000;
     endTime = startTime + data.length;
     currentTime = startTime;
-
-    while(currentTime <= endTime){
-      const requestOptions = {
-        uri: 'https://rechat.twitch.tv/rechat-messages?&start='+currentTime+"&video_id=v"+videoID,
-        headers: {
-          'Client-ID': '7vaylot4y76nvfvl5smsdl3lbeiajs'
-        },
-        json: true
-      };
-
-      requests.push(rp(requestOptions));
-
-      currentTime += TWITCH_INTERVAL;
-    }
 
     parsedData.channelData = {
       name : data.channel.name,
@@ -53,11 +39,57 @@ function parseChat(videoID){
       recordedAt: data.recorded_at,
       game: data.game
     };
+
+    const productRequestOptions = {
+      uri: `https://api.twitch.tv/api/channels/${parsedData.channelData.name}/product`,
+      headers: {
+        'Client-ID': '7vaylot4y76nvfvl5smsdl3lbeiajs'
+      },
+      json: true
+    };
+
+    return rp(productRequestOptions)
+  })
+  .then(productData => {
+
+    if(productData.subsonly){
+      parsedData.channelData.emotes = {};
+      
+      productData.emoticons.forEach(({ id, state, regex }) => {
+
+        if(state === "Active"){
+          parsedData.channelData.emotes[regex] = {
+            code: regex,
+            id
+          }
+        }
+      })
+    }
+
+    const requests = [];
+
+    while(currentTime <= endTime){
+      const requestOptions = {
+        uri: 'https://rechat.twitch.tv/rechat-messages?&start='+currentTime+"&video_id=v"+videoID,
+        headers: {
+          'Client-ID': '7vaylot4y76nvfvl5smsdl3lbeiajs'
+        },
+        json: true
+      };
+
+      requests.push(rp(requestOptions));
+
+      currentTime += TWITCH_INTERVAL;
+    }
     
     return Promise.all(requests);
   })
   .then(chatChunks => {
     console.log("Whew! Promise.all successful!")
+
+    const library = makeLibrary(chatChunks, parsedData.channelData.emotes && parsedData.channelData.emotes);
+    formattedLibrary = formatLibrary(library);
+
 
     const channelOptions = {
       uri: parsedData.channelData.api,
@@ -66,8 +98,6 @@ function parseChat(videoID){
       },
       json: true
     };
-    const library = makeLibrary(chatChunks);
-    formattedLibrary = formatLibrary(library);
 
     console.log("One last call to make. Need that streamer image!")
     return rp(channelOptions)
@@ -86,12 +116,15 @@ function parseChat(videoID){
 }
 
 
-function makeLibrary(chunks){
+function makeLibrary(chunks, channelEmotes){
   //library will hold keys with the name of emotes used
   //the value will be an array of arrays, each subarray representing
   //a 30 second chunk of chat time
   const library = {};
-
+  const clonedDefaults = JSON.parse(JSON.stringify(defaultEmotes));
+  const clonedChannel = JSON.stringify(channelEmotes);
+  const fullEmotes = Object.assign({}, clonedDefaults, clonedChannel);
+  console.log(fullEmotes);
   //for every 30 seconds chunk of chat
   //analyze each post
   //check each post string for every emote
@@ -102,17 +135,29 @@ function makeLibrary(chunks){
     const emoteTracker = {};
 
     chunk.data.forEach(post => {
-      const postOffsetTime = Math.floor(post.attributes["video-offset"] / 1000) - REPLAY_OFFSET;
+      const moment = Math.floor(post.attributes["video-offset"] / 1000) - REPLAY_OFFSET;
+      for(let emote in fullEmotes){
 
-      emoteNames.forEach(emoteName => {
-        if(post.attributes.message.includes(emoteName)){
-          !emoteTracker[emoteName] 
-            ? 
-              emoteTracker[emoteName] = [postOffsetTime] 
-            : 
-              emoteTracker[emoteName].push(postOffsetTime)
-        }          
-      });
+        if(post.attributes.message.includes(emote)){
+          !emoteTracker[emote] && (emoteTracker[emote] = {
+            emoteName : emote,
+            imgID : fullEmotes[emote].id,
+            moments : []
+          });
+
+          emoteTracker[emote].moments.push(moment)
+        }
+      }
+
+      // emoteNames.forEach(emoteName => {
+      //   if(post.attributes.message.includes(emoteName)){
+      //     !emoteTracker[emoteName] 
+      //       ? 
+      //         emoteTracker[emoteName] = [postOffsetTime] 
+      //       : 
+      //         emoteTracker[emoteName].push(postOffsetTime)
+      //   }          
+      // });
     });
 
     for(let emote in emoteTracker){

@@ -107,17 +107,6 @@ class TwitchPlayer extends Component {
 					moments={this.props.emotes.find(emote => emote.name === this.props.activeEmote).moments} 
 					activeMoment={this.props.activeMoment}
 				/>
-				{/*<ButtonW>
-					{this.props.emotes.find(emote => emote.name === this.props.activeEmote).moments.map((moment, index) => {
-						return (
-							<TimeButton 
-								key={moment} 
-								onClick={() => this.props.dispatch(updateActive({activeMoment: index}))}>
-								{convertToTime(moment)}
-							</TimeButton>
-						)
-					})}
-				</ButtonW>*/}
       </PlayerW>
 		);
 	}
