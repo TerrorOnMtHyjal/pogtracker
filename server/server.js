@@ -25,11 +25,10 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.get(/^(?!\/api(\/|$))/, (req, res) => {
-//     console.log("why am I in here")
-//     const index = path.resolve(__dirname, '../client/build', 'index.html');
-//     res.sendFile(index);
-// });
+app.get(/^(?!\/api(\/|$))/, (req, res) => {
+    const index = path.resolve(__dirname, '../client/build', 'index.html');
+    res.sendFile(index);
+});
 
 app.use('/api', router);
 
