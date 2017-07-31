@@ -9,10 +9,11 @@ export const sendVideoRequest = (videoID) => (dispatch) => {
   return fetch(`/api/replay/${videoID}`)
   .then(res => res.json())
   .then(data => {
+    console.log(data)
     dispatch(requestCompleted(data));
   })
   .catch(e => {
-    console.log("error, yo")
+    console.log("error, yo", e)
     console.log(JSON.stringify(e));
   });
 }

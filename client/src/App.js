@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { jumpToTime, sendVideoRequest }  from './actions/actions';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
@@ -15,10 +13,6 @@ import './App.css';
 const AppW = styled.div`
   display: flex;
   align-items: stretch;
-`;
-
-const Buttons = styled.div`
-  display: flex;
 `;
 
 class App extends Component {
@@ -38,9 +32,4 @@ class App extends Component {
   }
 }
 
-const mapState = ({ videoLoaded, requesting }) => ({
-  videoLoaded,
-  requesting
-});
-
-export default connect(mapState)(App);
+export default App;

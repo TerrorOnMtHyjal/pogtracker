@@ -5,7 +5,7 @@ const initialState = {
   requesting: false,
   loadedData : {
     videoID: "",
-    library: {},
+    library: [],
     channelData: {},
     replayData: {},
     activeEmote: "PogChamp",
@@ -32,8 +32,10 @@ export default function appState(state=initialState, action){
           ...action.updates
         }
       }
+
     case actions.REQUEST_SENT:
       return {...state, requesting: true}
+
     case actions.REQUEST_COMPLETE :
       return {
         ...state, 

@@ -72,7 +72,6 @@ class PogTracker extends Component {
 }
 
 const mapState = ({ requesting, videoLoaded, loadedData}) => ({
-  loadedVideoID : loadedData.videoID,
   requesting,
   videoLoaded
 });

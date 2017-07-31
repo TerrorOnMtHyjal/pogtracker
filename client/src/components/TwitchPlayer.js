@@ -95,7 +95,7 @@ class TwitchPlayer extends Component {
 	}
 
   updateTime() {
-		const time = this.props.emotes.find(emote => emote.name === this.props.activeEmote).moments[this.props.activeMoment];
+		const time = this.props.library.find(emote => emote.name === this.props.activeEmote).moments[this.props.activeMoment];
     this.player.seek(time);
   }
 
@@ -104,7 +104,7 @@ class TwitchPlayer extends Component {
       <PlayerW>
 				<div id={this.state.id || ''} className="twitch-video-embed"></div>
 				<MomentList
-					moments={this.props.emotes.find(emote => emote.name === this.props.activeEmote).moments} 
+					moments={this.props.library.find(emote => emote.name === this.props.activeEmote).moments} 
 					activeMoment={this.props.activeMoment}
 				/>
       </PlayerW>
@@ -115,7 +115,7 @@ class TwitchPlayer extends Component {
 const mapState = ({ loadedData }, ownProps) => ({
 	query : ownProps.query ? ownProps.query : undefined,
 	videoID : loadedData.videoID,
-	emotes : loadedData.library.emotes,
+	library : loadedData.library,
 	activeEmote : loadedData.activeEmote,
 	activeMoment : loadedData.activeMoment
 });

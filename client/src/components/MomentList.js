@@ -45,7 +45,6 @@ const MomentButton = styled.button`
 class MomentList extends Component {
 
   generateButtons(moments){
-    console.log(this.props.activeMoment);
     return moments.map((moment, index) => {
 
       return (
