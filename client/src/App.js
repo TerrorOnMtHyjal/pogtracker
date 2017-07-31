@@ -13,9 +13,8 @@ import PogTracker from './containers/PogTracker';
 import './App.css';
 
 const AppW = styled.div`
-  margin: 0 auto;
-  width: 70%;
-  height: 100%;
+  display: flex;
+  align-items: stretch;
 `;
 
 const Buttons = styled.div`
@@ -27,7 +26,7 @@ class App extends Component {
     return(
       <Router>
         <AppW>
-          <TopBar/>
+          {/*<TopBar/>*/}
             <Switch>
               <Route exact path="/" component={Landing}/>
               <Route path="/replay/:id" component={PogTracker}/>

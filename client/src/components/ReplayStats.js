@@ -4,10 +4,10 @@ import styled from 'styled-components';
 
 const StatsW = styled.div`
   display: flex;
-  width: 100%;
   font-family: 'Open Sans', serif;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
   margin: 20px 0;
 `;
 const OwnerW = styled.div`

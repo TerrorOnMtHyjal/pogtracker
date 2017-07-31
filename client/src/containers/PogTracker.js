@@ -8,12 +8,12 @@ import Loading from '../components/Loading';
 import ReplayStats from '../components/ReplayStats';
 import EmoteButtons from '../components/EmoteButtons';
 import TwitchPlayer from '../components/TwitchPlayer';
-import TwitchPlayerTopper from '../components/TwitchPlayerTopper';
 
 const PogTrackerW = styled.div`
   display: flex;
   flex-flow: column;
   align-items: center;
+  width: 100%;
 `;
 
 class PogTracker extends Component {
@@ -47,7 +47,7 @@ class PogTracker extends Component {
 
   render() {
     return (
-      <div>
+      <PogTrackerW>
          {
           this.props.requesting 
             ? <Loading />
@@ -61,7 +61,7 @@ class PogTracker extends Component {
                 </PogTrackerW>
               : undefined
          }
-      </div>
+      </PogTrackerW>
     );
   }
 }
