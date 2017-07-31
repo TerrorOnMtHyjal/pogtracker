@@ -116,59 +116,34 @@ function parseChat(videoID){
 
 
 function makeLibrary(chunks, channelEmotes){
-  //library will hold keys with the name of emotes used
-  //the value will be an array of arrays, each subarray representing
-  //a 30 second chunk of chat time
-  const library = {};
   const clonedDefaults = JSON.parse(JSON.stringify(defaultEmotes));
   const fullEmotes = Object.assign({}, clonedDefaults, channelEmotes);
-  console.log(fullEmotes);
-  //for every 30 seconds chunk of chat
-  //analyze each post
-  //check each post string for every emote
-  //if an emote is found, track it as a key in emoteTracker
-  //insert the currently tracked emotes into the library
-  //before moving on to the next chat chunk
-  chunks.forEach(chunk => {
-    const emoteTracker = {};
+  const emoteTracker = {};
 
+  chunks.forEach(chunk => {
     chunk.data.forEach(post => {
       const moment = Math.floor(post.attributes["video-offset"] / 1000) - REPLAY_OFFSET;
+
       for(let emote in fullEmotes){
-
         if(post.attributes.message.includes(emote)){
-          !emoteTracker[emote] && (emoteTracker[emote] = {
-            emoteName : emote,
-            imgID : fullEmotes[emote].id,
-            subscriberEmote : true,
-            moments : []
-          });
 
-          emoteTracker[emote].moments.push(moment)
+          !emoteTracker[emote]
+            ?
+              emoteTracker[emote] = {
+                emoteName : emote,
+                imgID : fullEmotes[emote].id,
+                channelEmote : fullEmotes[emote].channelEmote ? true : false,
+                moments : [moment]
+              }
+            :
+              emoteTracker[emote].moments.push(moment);
         }
       }
-
-      // emoteNames.forEach(emoteName => {
-      //   if(post.attributes.message.includes(emoteName)){
-      //     !emoteTracker[emoteName] 
-      //       ? 
-      //         emoteTracker[emoteName] = [postOffsetTime] 
-      //       : 
-      //         emoteTracker[emoteName].push(postOffsetTime)
-      //   }          
-      // });
     });
-
-    for(let emote in emoteTracker){
-      !library[emote] 
-        ? 
-          library[emote] = [emoteTracker[emote]] 
-        : 
-          library[emote].push(emoteTracker[emote])
-    }
   });
-
-  return library;
+  
+  console.log(Object.keys(emoteTracker));
+  return emoteTracker;
 }
 
 function formatLibrary(library){
