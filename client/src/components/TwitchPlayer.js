@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { updateActive } from '../actions/actions';
 import { convertToTime }  from '../lib/tools';
+import MomentList from './MomentList';
 
 const PlayerW = styled.div`
 	display: flex;
@@ -102,7 +103,11 @@ class TwitchPlayer extends Component {
 		return (
       <PlayerW>
 				<div id={this.state.id || ''} className="twitch-video-embed"></div>
-				<ButtonW>
+				<MomentList
+					moments={this.props.emotes.find(emote => emote.name === this.props.activeEmote).moments} 
+					activeMoment={this.props.activeMoment}
+				/>
+				{/*<ButtonW>
 					{this.props.emotes.find(emote => emote.name === this.props.activeEmote).moments.map((moment, index) => {
 						return (
 							<TimeButton 
@@ -112,7 +117,7 @@ class TwitchPlayer extends Component {
 							</TimeButton>
 						)
 					})}
-				</ButtonW>
+				</ButtonW>*/}
       </PlayerW>
 		);
 	}
