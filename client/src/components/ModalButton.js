@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
+import Search from './Search';
 import Landing from './Landing';
 import styled from 'styled-components';
 
@@ -11,9 +12,8 @@ const modalStyle = {
     background: 'rgba(0, 0, 0, 0.97)'
   },
   content : {
-    position: 'static',
+    position: "static",
     margin: 'auto',
-    width: '70%',
     padding: 0,
     margin: 0,
     background: 'transparent',
@@ -68,7 +68,7 @@ class ModalButton extends Component {
           onRequestClose={this.closeModal}
           contentLabel="Search Modal"
         >
-          <Landing modal/>
+          <Search modal/>
         </Modal>
       </div>
     );

@@ -20,14 +20,9 @@ const SearchW = styled.div`
 const SearchBoxW = styled.form`
   position: relative;
   display: flex;
-  justify-content: center;
-  align-items: center;
 
   & > span {
-    width: 100%;
     opacity: 1;
-    flex-basis: 0;
-    flex: 1;
   }
 
   & > i {

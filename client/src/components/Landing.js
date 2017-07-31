@@ -74,15 +74,15 @@ class Landing extends Component {
 
   render() {
     return (
-      <LandingW modal={!!this.props.modal}>
+      <LandingW>
         <div>
-          <Search modal={!!this.props.modal}/>
+          <Search/>
           <InstructionW>
-            <Instruction>Find a <ReplayHelper modal={!!this.props.modal}>replay ID</ReplayHelper>, drop it in and we'll generate some fun highlights for you</Instruction>
+            <Instruction>Find a <ReplayHelper>replay ID</ReplayHelper>, drop it in and we'll generate some fun highlights for you</Instruction>
             <Emote />
           </InstructionW>
         </div>
-        {!this.props.modal && <Learn>Learn More</Learn>}
+        <Learn>Learn More</Learn>
       </LandingW>
     );
   }
