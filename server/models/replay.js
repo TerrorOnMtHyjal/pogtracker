@@ -19,15 +19,12 @@ const ReplaySchema = new Schema({
     recordedAt : String,
     game : String
   },
-  library : {
-    mostUsed : String,
-    emotes : [{
-      name : String,
-      imgID : Number,
-      count : Number,
-      moments : [Number]
-    }]
-  }
+  library : [{
+    name : String,
+    imgID : Number,
+    channelEmote : Boolean,
+    moments : [Number]
+  }]
 });
 
 export default mongoose.model('Replay', ReplaySchema);
