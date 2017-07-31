@@ -22,7 +22,7 @@ const InstructionW = styled.div`
 const DescriptionW = styled.div`
   display: flex;
   position: relative;
-  top: -8rem;
+  top: -11rem;
   flex-flow: column;
   align-items: flex-end;
   font-size: 1rem;
@@ -115,14 +115,14 @@ class Landing extends Component {
     return (
       <LandingW>
         <div>
-          <DescriptionW>
+          {/*<DescriptionW>
             <h1>THE ULTIMATE HIGHLIGHT GENERATOR</h1>
             <div><Emote url={`"https://static-cdn.jtvnw.net/emoticons/v1/156787/1.0"`}/><h2>powered by <span>twitch chat</span></h2></div>
-            {/*<ButtonsW>
+            <ButtonsW>
               <button>Streamers</button>
               <button>Viewers</button>
-            </ButtonsW>*/}
-          </DescriptionW>
+            </ButtonsW>
+          </DescriptionW>*/}
           <Search/>
           <InstructionW>
             <Instruction>Find a <ReplayHelper>replay ID</ReplayHelper>, drop it in and we'll generate some fun highlights for you</Instruction>
