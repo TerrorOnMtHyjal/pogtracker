@@ -26,7 +26,7 @@ class App extends Component {
     return(
       <Router>
         <AppW>
-          {/*<TopBar/>*/}
+          <TopBar/>
             <Switch>
               <Route exact path="/" component={Landing}/>
               <Route path="/replay/:id" component={PogTracker}/>

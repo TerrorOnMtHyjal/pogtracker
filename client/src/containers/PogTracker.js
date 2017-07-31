@@ -10,6 +10,11 @@ import EmoteButtons from '../components/EmoteButtons';
 import TwitchPlayer from '../components/TwitchPlayer';
 
 const PogTrackerW = styled.div`
+  width: 100%;
+  margin-top: 6rem;
+`;
+
+const PogTrackerInnerW = styled.div`
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -54,11 +59,11 @@ class PogTracker extends Component {
             : 
             this.props.videoLoaded 
               ? 
-                <PogTrackerW>
+                <PogTrackerInnerW>
                   <ReplayStats />
                   <TwitchPlayer/>
                   <EmoteButtons />
-                </PogTrackerW>
+                </PogTrackerInnerW>
               : undefined
          }
       </PogTrackerW>

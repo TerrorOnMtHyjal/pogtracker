@@ -8,7 +8,6 @@ const LandingW = styled.div`
   display: flex;
   flex-flow: column;
   justify-content: center;
-  align-items: center;
   font-family: 'Open Sans', sans-serif;
   font-size: 0.8rem;
 `;
@@ -21,22 +20,40 @@ const InstructionW = styled.div`
 `;
 
 const DescriptionW = styled.div`
-  & > p, h3 {
-    display: inline-block;
+  display: flex;
+  flex-flow: column;
+  align-items: flex-end;
+  margin-bottom: 15%;
+  margin-top: -25%;
+
+  & > h1, h2 {
     margin: 0;
     padding: 0;
   }
 
-  & > h3 {
-    margin-right: 10px;
-    font-style: italic;
-    color: rgba(100, 65, 164, 1);
-  }
-
-  & > h1 {
-    & > span {
+  & > div {
+    display: flex;
+    align-items: center;
+    & > h2 {
+      margin: 0;
+      margin-left: -10px;
+      padding: 0;
       color: rgba(100, 65, 164, 1);
     }
+  }
+`;
+
+const ButtonsW = styled.div`
+  display: flex;
+  align-items: center;
+
+  & > button {
+    padding: 0.5rem 1.5rem;
+    margin-left: 1rem;
+    margin-top: 0.5rem;
+    background: none;
+    border: 1px solid rgba(100, 65, 164, 1);
+    cursor: pointer;
   }
 `;
 
@@ -55,7 +72,7 @@ const ReplayHelper = styled.button`
 `;
 
 const Emote = styled.div`
-  background-image: url("https://static-cdn.jtvnw.net/emoticons/v1/41/1.0");
+  background-image: url(${props => props.url});
   background-repeat: no-repeat;
   background-position: center;
   margin: 0 10px 0 0;
@@ -96,17 +113,17 @@ class Landing extends Component {
       <LandingW>
         <div>
           <DescriptionW>
-            <h1>The ultimate highlight generator. Powered by <span>twitch chat</span>.</h1>
-            <h3>Streamers:</h3>
-            <p>Find the top highlights from your stream automatically. The more active the chat, the better the results.</p>
-            <br />
-            <h3>Viewers:</h3>
-            <p>Missed a moment? Want to see the top FailFish of your favorite streamer's recent broadcast? We got you covered.</p>
+            <h1>THE ULTIMATE HIGHLIGHT GENERATOR</h1>
+            <div><Emote url={`"https://static-cdn.jtvnw.net/emoticons/v1/156787/1.0"`}/><h2>powered by <span>twitch chat</span></h2></div>
+            <ButtonsW>
+              <button>Streamers</button>
+              <button>Viewers</button>
+            </ButtonsW>
           </DescriptionW>
           <Search/>
           <InstructionW>
             <Instruction>Find a <ReplayHelper>replay ID</ReplayHelper>, drop it in and we'll generate some fun highlights for you</Instruction>
-            <Emote />
+            <Emote url={`"https://static-cdn.jtvnw.net/emoticons/v1/41/1.0"`}/>
           </InstructionW>
         </div>
         <Learn>Learn More</Learn>
