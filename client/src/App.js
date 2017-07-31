@@ -15,6 +15,7 @@ import './App.css';
 const AppW = styled.div`
   margin: 0 auto;
   width: 70%;
+  height: 100%;
 `;
 
 const Buttons = styled.div`
