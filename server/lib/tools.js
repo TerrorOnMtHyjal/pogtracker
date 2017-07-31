@@ -121,6 +121,8 @@ function makeLibrary(chunks, channelEmotes){
   const emoteTracker = {};
 
   chunks.forEach(chunk => {
+    const momentsTracker = {};
+
     chunk.data.forEach(post => {
       const moment = Math.floor(post.attributes["video-offset"] / 1000) - REPLAY_OFFSET;
 
@@ -133,16 +135,26 @@ function makeLibrary(chunks, channelEmotes){
                 emoteName : emote,
                 imgID : fullEmotes[emote].id,
                 channelEmote : fullEmotes[emote].channelEmote ? true : false,
-                moments : [moment]
+                moments : []
               }
             :
-              emoteTracker[emote].moments.push(moment);
+              undefined
+
+          !momentsTracker[emote]
+            ?
+              momentsTracker[emote] = [moment]
+            : 
+              momentsTracker[emote].push(moment)
         }
       }
     });
+
+    for(let emote in momentsTracker){
+      emoteTracker[emote].moments.push(momentsTracker[emote]);
+    }
   });
-  
-  console.log(Object.keys(emoteTracker));
+
+  console.log(emoteTracker);
   return emoteTracker;
 }
 
