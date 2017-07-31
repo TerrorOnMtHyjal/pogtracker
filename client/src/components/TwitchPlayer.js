@@ -24,11 +24,13 @@ const ActiveEmoteHighlight = styled.div`
 	flex-grow: 1;
 	justify-content: center;
 	align-items: center;
-	opacity: 0.15;
+	background: rgba(100, 65, 164, 1);
+	opacity: 0.4;
 	${props => props.imgID && `
 		background-image : url(https://static-cdn.jtvnw.net/emoticons/v1/${props.imgID}/3.0);
 		background-size: cover;
 		background-repeat: no-repeat;
+		background-blend-mode: luminosity;
 	`}
 	${props => props.flipped && `
 		transform: scaleX(-1);
