@@ -29,7 +29,8 @@ function parseChat(videoID){
     parsedData.channelData = {
       name : data.channel.name,
       displayName : data.channel.display_name,
-      api : data._links.channel
+      api : data._links.channel,
+      emotes : {}
     };
 
     parsedData.replayData = {
@@ -51,15 +52,13 @@ function parseChat(videoID){
     return rp(productRequestOptions)
   })
   .then(productData => {
-
-    if(productData.subsonly){
-      parsedData.channelData.emotes = {};
-      
+    if(productData.emoticons){
       productData.emoticons.forEach(({ id, state, regex }) => {
-
-        if(state === "Active"){
+        if(state === "active"){
+          console.log("im active")    
           parsedData.channelData.emotes[regex] = {
             code: regex,
+            channelEmote: true,
             id
           }
         }
@@ -87,7 +86,7 @@ function parseChat(videoID){
   .then(chatChunks => {
     console.log("Whew! Promise.all successful!")
 
-    const library = makeLibrary(chatChunks, parsedData.channelData.emotes && parsedData.channelData.emotes);
+    const library = makeLibrary(chatChunks, parsedData.channelData.emotes);
     formattedLibrary = formatLibrary(library);
 
 
@@ -122,8 +121,7 @@ function makeLibrary(chunks, channelEmotes){
   //a 30 second chunk of chat time
   const library = {};
   const clonedDefaults = JSON.parse(JSON.stringify(defaultEmotes));
-  const clonedChannel = JSON.stringify(channelEmotes);
-  const fullEmotes = Object.assign({}, clonedDefaults, clonedChannel);
+  const fullEmotes = Object.assign({}, clonedDefaults, channelEmotes);
   console.log(fullEmotes);
   //for every 30 seconds chunk of chat
   //analyze each post
@@ -142,6 +140,7 @@ function makeLibrary(chunks, channelEmotes){
           !emoteTracker[emote] && (emoteTracker[emote] = {
             emoteName : emote,
             imgID : fullEmotes[emote].id,
+            subscriberEmote : true,
             moments : []
           });
 
