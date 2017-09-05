@@ -6,7 +6,7 @@ PogTracker utilizes multiple Twitch.tv APIs to collect relevant replay data for 
 
 This application provides a quick and fun way to find and watch moments within a given broadcast, based on emotes used daily throughout Twitch.
 
-##Installation
+## Installation
 
 ```
 >   git clone https://github.com/dustwise/pogtracker.git
@@ -14,7 +14,7 @@ This application provides a quick and fun way to find and watch moments within a
 >   npm install
 ```
 
-###Launching
+### Launching
 
 ```
 >   npm run dev
