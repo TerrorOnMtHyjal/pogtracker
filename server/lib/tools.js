@@ -52,7 +52,6 @@ function parseChat(videoID){
     return rp(productRequestOptions)
   })
   .then(productData => {
-    console.log("hit")
     if(productData.emoticons){
       productData.emoticons.forEach(({ id, state, regex }) => {
         if(state === "active"){  
@@ -84,7 +83,6 @@ function parseChat(videoID){
     return Promise.all(requests);
   })
   .then(chatChunks => {
-    console.log("hit2")
     console.log("Whew! Promise.all successful! Formatting data.")
 
     const library = makeLibrary(chatChunks, parsedData.channelData.emotes);
