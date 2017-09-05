@@ -11,11 +11,27 @@ const ButtonListW = styled.div`
 const ButtonRowW = styled.div`
   display: flex;
   flex-wrap: wrap;
+  background-color: #F2F2F2;
+  padding: 1em;
+  border-top: 2px solid rgba(100, 65, 164, 1);
 `;
 
 const Button = styled.button`
-  background: silver;
+  height: 2em;
+  width: 2em;
+  margin: 0.5em;
+  background: none;
+  border: none;
   cursor: pointer;
+  background-image: url('${props => props.img}');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  transition: all 0.1s ease-in-out;
+
+  &:hover{
+    transform: scale(1.3);
+  }
 `;
 
 class EmoteButtons extends Component {
@@ -56,9 +72,11 @@ class EmoteButtons extends Component {
   generateRow(emotes){
     return emotes.map(emote => {
       return (
-        <Button key={emote.name} onClick={() => this.props.dispatch(updateActive({activeEmote: emote.name}))}>
-          <img src={`https://static-cdn.jtvnw.net/emoticons/v1/${emote.imgID}/1.0`} alt={emote}/>
-        </Button>
+        <Button 
+          key={emote.name} 
+          onClick={() => this.props.dispatch(updateActive({ activeEmote: emote.name }))}
+          img={`https://static-cdn.jtvnw.net/emoticons/v1/${emote.imgID}/1.0`}
+        />
       ) 
     })
   }

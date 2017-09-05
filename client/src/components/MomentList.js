@@ -10,7 +10,7 @@ const MomentListW = styled.div`
 	height: 432px;
   background: rgba(100, 65, 164, 1);
   max-width: 125px;
-  z-index: 10;
+  z-index: 2;
 `;
 
 const MomentButton = styled.button`
