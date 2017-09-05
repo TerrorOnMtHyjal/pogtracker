@@ -36,20 +36,20 @@ The backend is built on Node.js using Express, MongoDB and Mongoose. The heart o
 
 ```
 //  Make initial call to capture generic channel and broadcast information 
-    (broadcaster name, broadcaster ID, broadcast title, etc.) and replay start time.
+//  (broadcaster name, broadcaster ID, broadcast title, etc.) and replay start time.
 
 //  Second call determines whether the broadcaster is partnered via their ID, capturing 
-    their custom emotes and generates promises for each chat request, based on thirty 
-    second intervals (the Twitch API limit per chat request).
+//  their custom emotes and generates promises for each chat request, based on thirty 
+//  second intervals (the Twitch API limit per chat request).
 
 //  Executes a Promise.All for every chat promise API call, passing the returned data to 
-    dehydration/hydration methods.
+//  dehydration/hydration methods.
 
 //  Builds and formats the emote library, removing emotes that are not used regularly and 
-    cataloging timestamps for bursts of emotes based on emote average use.
-    
+//  cataloging timestamps for bursts of emotes based on emote average use.
+
 //  Returns the formatted data to be stored in MongoDB via Mongoose for future queries 
-    and to be delivered to the user.
+//  and to be delivered to the user.
 ```
 
 ## Stack
