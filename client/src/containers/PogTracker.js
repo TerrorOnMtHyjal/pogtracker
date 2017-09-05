@@ -11,7 +11,7 @@ import TwitchPlayer from '../components/TwitchPlayer';
 
 const PogTrackerW = styled.div`
   width: 100%;
-  margin-top: 6rem;
+  margin-top: 5rem;
 `;
 
 const PogTrackerInnerW = styled.div`

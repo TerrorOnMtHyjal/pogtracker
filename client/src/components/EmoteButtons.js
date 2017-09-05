@@ -6,14 +6,21 @@ import styled from 'styled-components';
 const ButtonListW = styled.div`
   display: flex;
   flex-flow: column;
+  align-self: flex-start;
+
+  & > h3 {
+    margin: 0;
+    padding: 0;
+  }
 `;
 
 const ButtonRowW = styled.div`
   display: flex;
   flex-wrap: wrap;
   background-color: #F2F2F2;
-  padding: 1em;
+  padding: 0.5em;
   border-top: 2px solid rgba(100, 65, 164, 1);
+  margin: 0.5em 0 1.5em 0;
 `;
 
 const Button = styled.button`
@@ -99,9 +106,10 @@ class EmoteButtons extends Component {
       </ButtonListW>
     :
       <ButtonListW>
-          <ButtonRowW>
-            {this.generateRow(this.state.globalEmotes)}
-          </ButtonRowW>
+        <h3>Global Emotes</h3>
+        <ButtonRowW>
+          {this.generateRow(this.state.globalEmotes)}
+        </ButtonRowW>
       </ButtonListW>
     );
   }

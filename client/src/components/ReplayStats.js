@@ -62,7 +62,7 @@ class ReplayStats extends Component {
     return (
       <StatsW>
         <ShareW>
-          <ShareButton>Share this highlight</ShareButton>
+          {/* <ShareButton>Share this highlight</ShareButton> */}
         </ShareW>
         <OwnerW>
           <InfoW>
