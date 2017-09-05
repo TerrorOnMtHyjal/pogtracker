@@ -62,4 +62,7 @@ The backend is built on Node.js using Express, MongoDB and Mongoose. The heart o
 
 ## Future
 
-I have no future.
+- Full site redesign.
+- Provide related replays to the user.
+- Implement socket.io for more reliable and trackable processing requests.
+- Convert to an official Twitch extension once the program has laucnhed.
